@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "user-management-service"
+    }
+  },
+  "defaultProject": "user-management-service",
+  "cli": {
+    "analytics": "a53ad18a-63f3-4f86-b8bc-4c900cac1ea5"
+  }
 }
