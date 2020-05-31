@@ -1,0 +1,35 @@
+<div class="container">
+    <h3>Users List</h3>
+    <div class="row">
+        <table class="table table-striped table-hover table-bordered">
+            <thead>
+                <tr class="movie-table-head">
+                    <th>Id</th>
+                    <th>User</th>
+                    <th>Created Date</th>
+                    <th>Updated Date</th>
+                    <th>Is Active</th>
+                    <th colspan="3" style="text-align: center">Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr class="light-row" *ngFor="let user of userList">
+                    <td>{{user.id}}</td>
+                    <td>{{user.username}}</td>
+                    <td>{{user.createdDate | date:'mediumDate'}}</td>
+                    <td>{{user.updatedDate | date:'mediumDate'}}</td>
+                    <td>{{user.active}}</td>
+                    <td class="text-center"><a routerLink="/view-user/{{user.id}}">Show</a></td>
+                    <td class="text-center"><a routerLink="/edit-user/{{user.id}}">Edit</a></td>
+                    <td class="text-center"><a [routerLink]="['/deleteUser', user.id]">Delete</a></td>
+                </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<div class="container">
+    <a routerLink="/register" [ngClass]="['btn', 'btn-primary']">New User</a>
+</div>

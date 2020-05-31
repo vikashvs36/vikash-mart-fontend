@@ -1,0 +1,9 @@
+/*dispaly the block or btn */
+.dispaly {
+    display: block;
+  }
+  
+  /*Not dispaly the block or btn */
+  .display-none {
+    display: none;
+  }
