@@ -1,12 +1,12 @@
 ul.demo {
-    list-style-type: none;
-    margin: 5px;
-    padding: 0;
-  }
+  list-style-type: none;
+  margin: 5px;
+  padding: 0;
+}    
   
-  .nav>li {
-    position: relative;
-    display: block;
-    margin-left: 36px;
-    margin-top: 10px;
-  }
+.nav>li {
+  position: relative;
+  display: block;
+  margin-left: 36px;
+  margin-top: 10px;  
+}

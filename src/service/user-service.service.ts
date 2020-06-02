@@ -9,8 +9,9 @@ import { Observable } from 'rxjs';
 export class UserService {
 
   private url:string = "http://127.0.0.1:3333/api/user";
+  private login_url:string = "http://127.0.0.1:3333/api/user/login";
 
-  private tempUser:User = null;
+  private loginUser:User;
 
   constructor(private http: HttpClient) { }
 
@@ -18,13 +19,34 @@ export class UserService {
     return this.http.get<User[]>(this.url);
   }
 
-  saveUser(user:User): User {
-    // debugger;
-    console.log("user > ",user)
-    this.http.post<User>(this.url, user).subscribe(user=> {
-      this.tempUser = user
-    }); 
-
-    return this.tempUser;
+  findUserById(id:number): Observable<User> {
+    this.url += '/'+id;
+    return this.http.get<User>(this.url);
   }
+
+  saveUser(user:User): Observable<User> {
+    return this.http.post<User>(this.url, user);
+  }
+
+  login(username: string, password: string): User {
+    const user = {'username': username, 'password': password};
+    this.http.post<User>(this.login_url, user).subscribe(user => {
+      
+      if(user) {
+        this.loginUser = user;
+        localStorage.setItem("firstName", user?.profile?.firstName);
+      }
+      
+    })    
+    return this.loginUser;
+  }
+
+  getUser(): User {
+    return this.loginUser;
+  }
+
+  isUserLogin(): boolean {
+    return this.loginUser ? true : false;
+  }
+
 }

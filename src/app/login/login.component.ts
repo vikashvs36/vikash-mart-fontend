@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
+import { UserService } from 'src/service/user-service.service';
+import { User } from 'src/model/User';
 
 @Component({
   selector: 'app-login',
@@ -26,7 +29,7 @@ export class LoginComponent implements OnInit {
     'password': ''
   };
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
     this.loginForm =  this.fb.group({
@@ -57,7 +60,20 @@ export class LoginComponent implements OnInit {
   onSubmit(): void {
     this.logKeyValuePair(this.loginForm);
     console.log('Error :', this.formErrors);
-    
+
+    if(this.loginForm.valid) {
+      const user:User = this.userService.login(this.loginForm.controls.userName.value, this.loginForm.controls.password.value);
+      if(user) {
+        debugger;
+        console.log("user : ",user);
+        console.log('login User > ', this.userService.getUser());
+        this.goToDashboard();
+      }
+    }
+  }
+
+  goToDashboard() {
+    this.router.navigate(['/dashboard'])
   }
 
 }

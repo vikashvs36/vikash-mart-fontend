@@ -3,6 +3,7 @@ import { User } from 'src/model/User';
 import { Profile } from 'src/model/profile';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/service/user-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-user',
@@ -57,7 +58,8 @@ export class CreateUserComponent implements OnInit {
   confirmPassword: string = '';
   private newUser: User = null;
 
-  constructor(private fb: FormBuilder, private userService: UserService) { }
+  constructor(private fb: FormBuilder, private userService: UserService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.registerUser = this.fb.group({
@@ -123,6 +125,8 @@ export class CreateUserComponent implements OnInit {
 
     if (this.registerUser.valid) {
       this.userService.saveUser(this.getUserFromRegisterForm(this.registerUser));
+
+      this.goToDashboard();
     }
 
   }
@@ -141,6 +145,10 @@ export class CreateUserComponent implements OnInit {
     this.newUser = new User(email, password);
     this.newUser.profile = new Profile(email, firstName, lastName, gender);
     return this.newUser;
+  }
+
+  goToDashboard(): void {
+    this.router.navigate(['/dashboard'])
   }
 
 }

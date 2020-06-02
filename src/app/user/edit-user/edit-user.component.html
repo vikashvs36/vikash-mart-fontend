@@ -1,1 +1,71 @@
-<p>edit-user works!</p>
+<div class="container emp-profile">
+  <form [formGroup]="editUser">
+      <div class="row">
+          <div class="col-md-4">
+              <div class="profile-img">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
+                  <div class="file btn btn-lg btn-primary">
+                      Change Photo
+                      <input type="file" name="file"/>
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-8">
+              <div class="profile-head">
+                  <ul class="nav nav-tabs" id="myTab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" id="home-tab" data-toggle="tab" role="tab" aria-controls="home" aria-selected="true">About</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                          <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Timeline</a>
+                      </li> -->
+                  </ul>
+              </div>
+              <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input formControlName="firstName" class="form-control" name="first_name" placeholder="First Name"
+                            required="required">
+                        <!-- <span *ngIf="editUser?.firstName" class="error">{{editUser?.profile?.firstName}}</span> -->
+                    </div>
+                    <div class="col-xs-6">
+                        <input formControlName="lastName" class="form-control" name="last_name" placeholder="Last Name"
+                            required="required">
+                        <!-- <span *ngIf="editUser.lastName" mclass="error">{{editUser?.profile?.lastName}}</span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input formControlName="middleName" class="form-control" name="middleName"
+                            placeholder="Middle Name">
+                    </div>
+                    <div class="col-xs-6">
+                        <div class="dropdown">
+                            <select formControlName="gender" class="form-control" required>
+                                <option value="">Gender</option>
+                                <option value="MALE">MALE</option>
+                                <option value="FEMALE">FEMALE</option>
+                                <option value="OTHER">OTHER</option>
+                            </select>
+                        </div>
+                        <!-- <span *ngIf="editUser.gender" mclass="error">{{editUser?.profile?.gender}}</span> -->
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input formControlName="email" class="form-control" name="email" placeholder="Email" required="required">
+                <!-- <span *ngIf="editUser.email" class="error">{{editUser?.profile?.email}}</span> -->
+            </div>
+            <div class="form-group">
+                <label class="checkbox-inline"><input type="checkbox" required="required"> I accept the <a href="#">Terms of
+                        Use</a> &amp; <a href="#">Privacy Policy</a></label>
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+            </div>
+          </div>
+      </div>
+  </form>           
+</div>

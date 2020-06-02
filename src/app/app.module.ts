@@ -11,6 +11,7 @@ import { ListUserComponent } from './user/list-user/list-user.component';
 import { EditUserComponent } from './user/edit-user/edit-user.component';
 import { ViewUserComponent } from './user/view-user/view-user.component';
 import { CreateUserComponent } from './user/create-user/create-user.component';
+import { UserService } from 'src/service/user-service.service';
 
 
 @NgModule({
@@ -29,7 +30,7 @@ import { CreateUserComponent } from './user/create-user/create-user.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

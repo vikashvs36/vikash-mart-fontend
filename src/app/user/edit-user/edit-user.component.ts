@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-user',
@@ -7,9 +8,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditUserComponent implements OnInit {
 
-  constructor() { }
+  editUser: FormGroup;
+
+  constructor(private fb: FormBuilder) { }
 
   ngOnInit(): void {
+    this.editUser = this.fb.group({
+      email: [''],
+      firstName: [''],
+      middleName: [''],
+      lastName: [''],
+      password: [''],
+      confirmPassword: [''],
+      gender: ['']
+    });
   }
 
 }
