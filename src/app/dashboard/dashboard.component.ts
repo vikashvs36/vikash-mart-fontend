@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { UserService } from 'src/service/user-service.service';
 import { User } from 'src/model/User';
+import { LoginServiceService } from 'src/service/login-service.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,10 +11,10 @@ export class DashboardComponent implements OnInit, OnDestroy  {
 
   loginUser: User;
 
-  constructor(private userService: UserService) { }
+  constructor(private loginService: LoginServiceService) { }
 
   ngOnInit() {
-    this.loginUser = this.userService.getUser();
+    this.loginUser = this.loginService.getUser();
   }
 
   ngOnDestroy() {

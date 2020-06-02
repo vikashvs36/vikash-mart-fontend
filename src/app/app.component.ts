@@ -1,33 +1,35 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/service/user-service.service';
 import { User } from 'src/model/User';
+import { Router } from '@angular/router'
+import { LoginServiceService } from 'src/service/login-service.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
-  providers: [UserService]
+  // providers: [UserService]
 })
 export class AppComponent {
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private loginService: LoginServiceService,
+    private router: Router) {
   }  
 
   getUser(): User {
-    return this.userService.getUser();
+    return this.loginService.getUser();
   }
 
   isUserLogin(): boolean {
-    // return this.userService.isUserLogin();
-    return !! localStorage.getItem("firstName");
+    return this.loginService.isUserLogin();
   }
 
   getFirstName(): string {
-    // const user: User = this.getUser();
-    // return user?.profile?.firstName;
-    return localStorage.getItem("firstName");
+    return this.loginService.getFirstName();
   }
 
-
+  logout(): void {
+    this.loginService.logout();
+  }
 
 }

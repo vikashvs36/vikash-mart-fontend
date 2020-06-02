@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/service/user-service.service';
 import { User } from 'src/model/User';
+import { LoginServiceService } from 'src/service/login-service.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   login= 'Login';
   validationMessage= {
@@ -29,15 +31,17 @@ export class LoginComponent implements OnInit {
     'password': ''
   };
 
-  constructor(private fb: FormBuilder, private router: Router, private userService: UserService) { }
+  loginSub: Subscription;
+  error: string = '';
+
+  constructor(private fb: FormBuilder, private router: Router, private userService: UserService,
+    private loginService: LoginServiceService) { }
 
   ngOnInit(): void {
     this.loginForm =  this.fb.group({
       userName: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(8)]],
       password: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(8)]]
     });
-
-    
   }
 
   logKeyValuePair(group: FormGroup): void {
@@ -59,21 +63,31 @@ export class LoginComponent implements OnInit {
 
   onSubmit(): void {
     this.logKeyValuePair(this.loginForm);
-    console.log('Error :', this.formErrors);
 
     if(this.loginForm.valid) {
-      const user:User = this.userService.login(this.loginForm.controls.userName.value, this.loginForm.controls.password.value);
-      if(user) {
-        debugger;
-        console.log("user : ",user);
-        console.log('login User > ', this.userService.getUser());
-        this.goToDashboard();
-      }
+      this.loginSub = this.loginService.login(this.loginForm.controls.userName.value, this.loginForm.controls.password.value)
+          .subscribe(user=> {
+            if(user) {
+                  sessionStorage.setItem("firstName", user?.profile?.firstName);
+                  sessionStorage.setItem("user", JSON.stringify(user));
+                  this.goToUser();
+                } else {
+                  sessionStorage.setItem("firstName", '');
+                  sessionStorage.setItem("user", '');
+                  this.error = "Username Or password is wrong";
+                }
+          });
     }
   }
 
-  goToDashboard() {
-    this.router.navigate(['/dashboard'])
+  goToUser() {
+    this.router.navigate(['/list-user'])
+  }
+
+  ngOnDestroy(): void {
+    if(this.loginSub) {
+      this.loginSub.unsubscribe();
+    }
   }
 
 }

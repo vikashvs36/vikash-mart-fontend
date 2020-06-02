@@ -16,13 +16,13 @@
         <nav class="navbar navbar-default">
             <ul class="nav navbar-nav">
                 <li routerLinkActive="active" routerLink="/dashboard">Home</li>
-                <li routerLinkActive="active" routerLink="/list-user">Users</li>
+                <li *ngIf="isUserLogin()" routerLinkActive="active" routerLink="/list-user">Users</li>
                 <!-- <li routerLinkActive="active" routerLink="/create-user">Register</li> -->
 
                 <li *ngIf="!isUserLogin()" routerLinkActive="active" routerLink="/login" style="margin-left: 1000px;">Login</li>
                 <li *ngIf="isUserLogin()" style="margin-left: 1000px;">Hello {{getFirstName()}}</li>
+                <li *ngIf="isUserLogin()" style="margin-left: 10px; color: red;" (click)="logout()">Logout</li>
             </ul>
-            
         </nav>
     </div>
     <div>

@@ -14,15 +14,15 @@
             </thead>
 
             <tbody>
-                <tr class="light-row" *ngFor="let user of userList">
+                <tr class="light-row" *ngFor="let user of userList || []">
                     <td>{{user.id}}</td>
                     <td>{{user.username}}</td>
                     <td>{{user.createdDate | date:'mediumDate'}}</td>
                     <td>{{user.updatedDate | date:'mediumDate'}}</td>
                     <td>{{user.active}}</td>
-                    <td class="text-center"><a routerLink="/view-user/{{user.id}}">Show</a></td>
-                    <td class="text-center"><a routerLink="/edit-user/{{user.id}}">Edit</a></td>
-                    <td class="text-center"><a [routerLink]="['/deleteUser', user.id]">Delete</a></td>
+                    <td class="text-center"><a routerLink="/view-user/{{user?.id}}">Show</a></td>
+                    <td class="text-center"><a routerLink="/edit-user/{{user?.id}}">Edit</a></td>
+                    <td class="text-center"><a [routerLink]="['/deleteUser', user?.id]">Delete</a></td>
                 </tr>
             </tbody>
 

@@ -56,7 +56,7 @@ export class CreateUserComponent implements OnInit {
 
   password: string = '';
   confirmPassword: string = '';
-  private newUser: User = null;
+  newUser: User = null;
 
   constructor(private fb: FormBuilder, private userService: UserService,
     private router: Router) { }
@@ -116,6 +116,7 @@ export class CreateUserComponent implements OnInit {
   }
 
   onSubmit(): void {
+    debugger;
     this.logKeyValuePair(this.registerUser);
     if (!this.isPasswordMatch()) {
       this.regError['confirmPassword'] = "Password and confirm password should be same";
@@ -124,7 +125,9 @@ export class CreateUserComponent implements OnInit {
     console.log(this.regError);
 
     if (this.registerUser.valid) {
-      this.userService.saveUser(this.getUserFromRegisterForm(this.registerUser));
+      this.userService.saveUser(this.getUserFromRegisterForm(this.registerUser)).subscribe((user:User)=> {
+        console.log("User : "+user);
+      });
 
       this.goToDashboard();
     }

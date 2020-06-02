@@ -1,5 +1,8 @@
 <div class="container">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="col-md-4 col-md-offset-2">
+        <div class="alert alert-danger" role="alert" *ngIf="error">
+            {{error}}
+          </div>
         <div class="form-group">
             <label for="exampleInputEmail1">Email address</label>
             <input class="form-control" formControlName="userName" aria-describedby="emailHelp">
